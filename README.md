@@ -9,10 +9,11 @@ network evaluations in the slat-stage flow-matching sampler by **forecasting** t
 scaled-Hermite polynomial ([HiCache](https://arxiv.org/abs/2508.16984)) — generalised to SAM3D's
 **PyTree** (structured) velocities.*
 
-![training&#8209;free](https://img.shields.io/badge/training--free-%E2%9C%93-2e8f5c)
-&nbsp;![no&#8209;monkeypatch](https://img.shields.io/badge/native%20hook-no%20monkeypatch-2e6db0)
-&nbsp;![PyTorch](https://img.shields.io/badge/PyTorch-ee4c2c?logo=pytorch&logoColor=white)
-&nbsp;![license SAM](https://img.shields.io/badge/license-SAM-2e6db0)
+[![base: SAM 3D Objects](https://img.shields.io/badge/base-SAM%203D%20Objects-555)](https://github.com/facebookresearch/sam-3d-objects)
+&nbsp;[![arXiv: SAM 3D](https://img.shields.io/badge/arXiv-2511.16624-b5212f?logo=arxiv)](https://arxiv.org/abs/2511.16624)
+&nbsp;[![arXiv: HiCache](https://img.shields.io/badge/arXiv-2508.16984-b5212f?logo=arxiv)](https://arxiv.org/abs/2508.16984)
+&nbsp;[![license: SAM](https://img.shields.io/badge/license-SAM-2e6db0)](./LICENSE)
+&nbsp;![basis: Hermite polynomial](https://img.shields.io/badge/basis-Hermite%20polynomial-7a5cc6)
 
 </div>
 
