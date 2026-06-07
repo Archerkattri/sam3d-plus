@@ -122,8 +122,10 @@ microbenchmark and the full Hunyuan3D / SAM3D tables).
 
 ## Attribution
 
-- **SAM 3D Objects** © Meta Platforms, Inc. — model, weights, and code under the [SAM License](./LICENSE).
-  The full upstream README (install, demos, benchmark, citation) is preserved below.
+- **SAM 3D Objects** © Meta Platforms, Inc. — model, weights, and code under the [SAM License](./LICENSE)
+  (note its restrictions: research/responsible-use terms, a publication-acknowledgement requirement,
+  and trade-control / ITAR / sanctions compliance — **not** a permissive or unconditionally commercial
+  license). The full upstream README (install, demos, benchmark, citation) is preserved below.
 - **HiCache** — scaled-Hermite velocity forecasting, [arXiv:2508.16984](https://arxiv.org/abs/2508.16984).
   The Hermite basis here is a clean reimplementation, generalised to PyTree velocities.
 - **Adaptive Guidance** — [arXiv:2312.12487](https://arxiv.org/abs/2312.12487).
