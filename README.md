@@ -29,7 +29,7 @@ base generator, and the `+` / `++` suffix is a **method choice**, not a rival pr
 | Hunyuan3D-2 mini | `hunyuan2-plus` | `hunyuan2-plus-plus` |
 | SAM 3D Objects | `sam3d-plus` | `sam3d-plus-plus` |
 | Fast-SAM3D | `fastsam3d-plus` | `fastsam3d-plus-plus` |
-| DiT-XL/2 (ImageNet) | `dit-plus` | `dit-plus-plus` |
+| DiT-XL/2 (ImageNet) | `dit-plus` *(unreleased)* | `dit-plus-plus` *(unreleased)* |
 | TRELLIS (v1) | `faster-trellis` | `faster-trellis-plus-plus` |
 | TRELLIS.2-4B (v2) | `hermit-trellis2` | `hermit-trellis2-plus-plus` |
 
@@ -57,7 +57,7 @@ all leaves, and a forecast is one `tree_map` per order.
 
 > This is the **HiCache (Hermite polynomial)** fork. For the **exponential (DMD/Prony)** forecaster that
 > stays lossless out to a *larger* skip interval, see the sibling fork **`sam3d-plus-plus`** and the
-> standalone library [`hicache-plus-plus`](../hicache-plus-plus).
+> standalone library [`hicache-plus-plus`](https://github.com/Archerkattri/hicache-plus-plus).
 
 ## Method
 
@@ -118,7 +118,7 @@ beyond that, which is exactly the skip ceiling the exponential basis is built to
 
 For the **exponential (DMD/Prony)** forecaster that holds **F1 = 1.000 out to interval-6 at 1.56×** on the
 same stage — where Hermite is lossless only to interval-3 — see the sibling fork **`sam3d-plus-plus`** and
-the standalone library **[`hicache-plus-plus`](../hicache-plus-plus)** (with the controlled forecast
+the standalone library **[`hicache-plus-plus`](https://github.com/Archerkattri/hicache-plus-plus)** (with the controlled forecast
 microbenchmark and the full Hunyuan3D / SAM3D tables).
 
 ## Attribution
@@ -338,3 +338,12 @@ Model weights and demo/example assets are **not** committed to this repo — onl
 architecture (code + integration). Download the base-model weights from the upstream project,
 [facebookresearch/sam-3d-objects](https://github.com/facebookresearch/sam-3d-objects), per its instructions, and point the loader at them (see the code / upstream README). This
 keeps the repository lightweight and avoids redistributing third-party weights.
+
+---
+
+## Family
+
+Part of the **HiCache++ acceleration family**.
+
+- **Family hub:** [`hicache-plus-plus`](https://github.com/Archerkattri/hicache-plus-plus) — the basis library behind this adapter.
+- **Sibling:** [`sam3d-plus-plus`](https://github.com/Archerkattri/sam3d-plus-plus) — the same base model with the HiCache++ (Dynamic Mode Decomposition / Prony) exponential-forecast variant.
