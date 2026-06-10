@@ -64,7 +64,7 @@ A flow-matching sampler integrates `dx/dt = v_θ(x, t)`. HiCache treats the per-
 trajectory in the step index and, on skipped steps, **extrapolates it from cached finite-difference
 derivatives using a dual-scaled physicist's-Hermite polynomial** instead of evaluating `v_θ` — skipping
 `(interval-1)/interval` of the backbone passes. Here the velocity is a PyTree, so each derivative order is
-stored as a tree and the scalar Hermite coefficient `H̃_n(-k)/n!` is applied leafwise via `tree_map`
+stored as a tree and the scalar Hermite coefficient `H̃_n(k)/n!` is applied leafwise via `tree_map`
 (`accel.py`). A complementary **Adaptive-CFG** path drops the unconditional pass once conditional and
 unconditional velocities align and rebuilds the guidance term `g = w·(y_cond − y_uncond)` from cached
 anchors. The hook is **native** — the Euler solver and CFG module call the cache helpers directly; there
@@ -114,6 +114,31 @@ beyond that, which is exactly the skip ceiling the exponential basis is built to
 |---|---:|---:|
 | vanilla (uncached) | 1.00× | **1.000** |
 | **HiCache i3** | **1.44×** | **1.000** |
+
+### Sign-convention update (2026-06-10)
+
+The vendored Hermite forecast in `accel.py` evaluated the basis at `x = -k`; the corrected
+convention from [hicache-plus-plus 1.2.0](https://github.com/Archerkattri/hicache-plus-plus)
+is `x = +k` (the upstream TaylorSeer distance convention; `-k` flips every odd-order term).
+This fork now ships the corrected forecast. The published table above was measured with the
+as-released code and remains valid as-measured.
+
+Re-validated on the same protocol as the published table (the runnable slat-stage
+`FlowMatching` via Fast-SAM3D's `InferencePipelinePointMap`, identical vendored port, real
+weights, seed 42, F1\@0.05 of the output gaussians vs the uncached baseline), including
+wider-interval probes where a polynomial-basis error would be expected to bite:
+
+| config | as-released (`x = -k`) | corrected (`x = +k`) |
+|---|---:|---:|
+| HiCache i3/o2 | F1 = 1.000 (CD 0.0125) | F1 = 1.000 (CD 0.0121) |
+| HiCache i5/o3 | F1 = 1.000 (CD 0.0127) | F1 = 1.000 (CD 0.0126) |
+| HiCache i6/o3 | F1 = 1.000 (CD 0.0128) | F1 = 1.000 (CD 0.0128) |
+
+The corrected forecast matches the as-released result at the published interval (verdict:
+same, not worse), and on this stage the geometry is lossless at the F1\@0.05 metric out to
+interval-6 under both conventions (speedups 1.3x to 1.5x; run-to-run latency noise dominates
+the timing differences). The Chamfer drift is marginally lower with the corrected sign at
+i3 and i5.
 
 For the **exponential (DMD/Prony)** forecaster that holds **F1 = 1.000 out to interval-6 at 1.56×** on the
 same stage — where Hermite is lossless only to interval-3 — see the sibling fork **`sam3d-plus-plus`** and

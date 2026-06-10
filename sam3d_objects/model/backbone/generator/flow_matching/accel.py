@@ -47,9 +47,9 @@ def physicists_hermite(n: int, x: float) -> float:
 
 
 def hermite_coeff(order: int, k: int, sigma: float) -> float:
-    """Forecast coefficient ``Htilde_order(-k) / order!`` (a scalar, same for all
+    """Forecast coefficient ``Htilde_order(k) / order!`` (a scalar, same for all
     leaves). ``Htilde_n(x) = sigma^n H_n(sigma x)``."""
-    x = -float(k)
+    x = float(k)
     htilde = (sigma ** order) * physicists_hermite(order, sigma * x)
     return htilde / math.factorial(order)
 
