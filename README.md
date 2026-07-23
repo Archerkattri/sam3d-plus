@@ -4,6 +4,7 @@
 
 <p>
   <a href="https://github.com/Archerkattri/sam3d-plus/releases"><img alt="Release" src="https://img.shields.io/github/v/release/Archerkattri/sam3d-plus?color=1f6feb"></a>
+  <a href="https://github.com/Archerkattri/sam3d-plus/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/Archerkattri/sam3d-plus/total?label=downloads&color=1f6feb"></a>
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/github/license/Archerkattri/sam3d-plus?color=0d9488"></a>
 </p>
 
