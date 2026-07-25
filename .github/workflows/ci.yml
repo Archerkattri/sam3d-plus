@@ -1,0 +1,24 @@
+name: CI
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+jobs:
+  package-integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install build
+      - name: Reject unresolved merge markers
+        run: |
+          if git grep -n -E '^(<<<<<<<|=======|>>>>>>>)' -- '*.py'; then
+            exit 1
+          fi
+      - name: Compile tracked Python source
+        run: git ls-files -z '*.py' | xargs -0 python -m py_compile
+      - name: Build wheel without model dependencies
+        run: python -m build --wheel
