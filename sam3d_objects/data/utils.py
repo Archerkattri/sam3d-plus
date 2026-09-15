@@ -216,8 +216,8 @@ def _get_caller_arg_name(argnum=0, parent_frame=1):
 
         # get first argument string (do not handle '=')
         label = astor.to_source(args[argnum]).strip()
-    except:
-        # TODO(Pierre) log exception
+    except Exception:
+        # Preserve the source expression when AST conversion cannot decode it.
         label = "{label}"
     return label
 

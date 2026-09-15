@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "project": "sam3d-plus",
+  "commit": "4a71f1d12061f64d6485f5c970e30afb9b3ad313",
+  "base_model": "SAM 3D Objects",
+  "pipeline": "stock SAM 3D Objects demo / Inference._pipeline.models[slat_generator]",
+  "stage": "slat-stage FlowMatching",
+  "method": "HiCache scaled-Hermite",
+  "solver": "Euler",
+  "configuration": {
+    "interval": null,
+    "max_order": null,
+    "first_enhance": null,
+    "end_enhance": null,
+    "sigma": null,
+    "cfg_strength": null,
+    "cfg_interval": null,
+    "inference_steps": null
+  },
+  "acceptance": {
+    "status": "not-run",
+    "stock_checkpoint": null,
+    "dataset_or_input": null,
+    "seed": null,
+    "baseline_latency_ms": null,
+    "cached_latency_ms": null,
+    "speedup": null,
+    "metric": "F1@0.05 against uncached stock output",
+    "quality_vs_uncached": null,
+    "stock_validation": false,
+    "reason": "No stock model weights or GPU inference were run in this bounded packet."
+  },
+  "provenance": {
+    "transferred_fastsam3d_numbers_used": false,
+    "notes": "Fill this card only from a paired stock-checkpoint run with uncached and Hermite outputs."
+  }
+}

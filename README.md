@@ -103,6 +103,35 @@ fm.disable_hicache()            # restore the exact uncached sampler
 fm.disable_adaptive_guidance()
 ```
 
+### Complete demo recipe
+
+This is the stock-model wiring used by `demo.py`, with the slat-stage generator
+looked up before inference. It requires the upstream checkpoint setup and CUDA;
+the bounded verification for this fork does not run model inference.
+
+```python
+import sys
+
+sys.path.append("notebook")
+from inference import Inference, load_image, load_single_mask
+
+tag = "hf"
+inference = Inference(f"checkpoints/{tag}/pipeline.yaml", compile=False)
+fm = inference._pipeline.models["slat_generator"]
+fm.enable_hicache(interval=3, max_order=1, first_enhance=2, sigma=0.5)
+
+image = load_image("notebook/images/shutterstock_stylish_kidsroom_1640806567/image.png")
+mask = load_single_mask("notebook/images/shutterstock_stylish_kidsroom_1640806567", index=14)
+output = inference(image, mask, seed=42)
+output["gs"].save_ply("splat-hicache.ply")
+print(fm.get_hicache_status())
+print(fm.get_hicache_telemetry())
+```
+
+`fm.disable_hicache()` restores the no-cache path. A custom or non-Euler solver
+reports `active=False, reason="unsupported_solver"` and never silently claims
+Hermite acceleration.
+
 Internally `enable_hicache` is also available directly on the solver (`ODESolver.enable_hicache(...)`); the
 solver resets the per-trajectory cache at the start of every run and only activates it for `Euler`. A CPU
 unit test that needs no GPU or model weights ships in the accel module:
@@ -111,11 +140,13 @@ unit test that needs no GPU or model weights ships in the accel module:
 python -m sam3d_objects.model.backbone.generator.flow_matching.accel
 ```
 
-## Results
+## Historical transferred evidence (not stock validation)
 
-On the slat-stage `FlowMatching` (real SAM 3D Objects weights, F1 vs the uncached baseline), **HiCache
-(Hermite) is geometry-lossless (F1 = 1.000) out to interval-3 at ~1.44×**. The polynomial basis drifts
-beyond that, which is exactly the skip ceiling the exponential basis is built to push.
+This checkout has no new stock-model GPU acceptance run. The numeric tables below
+are inherited from a Fast-SAM3D slat-stage experiment and must not be read as stock
+SAM 3D validation. The stock acceptance fields are recorded in
+[`benchmarks/sam3d-plus.json`](benchmarks/sam3d-plus.json), with unmeasured values
+left null until a stock checkpoint run fills them.
 
 | config | speedup | F1 vs baseline |
 |---|---:|---:|
@@ -378,3 +409,9 @@ Part of the **HiCache++ acceleration family**.
 
 - **Family hub:** [`hicache-plus-plus`](https://github.com/Archerkattri/hicache-plus-plus) — the basis library behind this adapter.
 - **Sibling:** [`sam3d-plus-plus`](https://github.com/Archerkattri/sam3d-plus-plus) — the same base model with the HiCache++ (Dynamic Mode Decomposition / Prony) exponential-forecast variant.
+
+## Current release status
+
+The current adapter includes shared HiCache++ cache identity, timing and
+fallback accounting. Four CPU contract tests pass. Real SAM 3D model/CUDA
+execution and output-quality comparisons remain unmeasured.

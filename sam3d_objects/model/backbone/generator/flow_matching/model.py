@@ -208,6 +208,18 @@ class FlowMatching(Base):
         self._solver.disable_hicache()
         return self
 
+    def get_hicache_status(self):
+        """Return explicit active/unsupported/disabled status for the slat solver."""
+        return self._solver.get_hicache_status()
+
+    def get_hicache_telemetry(self):
+        """Return telemetry for the active or most recently completed slat run."""
+        return self._solver.get_hicache_telemetry()
+
+    def get_hicache_manifest(self):
+        """Return the latest identity-bound budget manifest."""
+        return self._solver.get_hicache_manifest()
+
     def enable_adaptive_guidance(self, **kwargs):
         """Convenience: enable Adaptive-CFG on the CFG dynamics (self.reverse_fn). See
         ClassifierFreeGuidance.enable_adaptive_guidance."""

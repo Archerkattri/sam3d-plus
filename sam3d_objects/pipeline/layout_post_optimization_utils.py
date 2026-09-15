@@ -121,7 +121,7 @@ def get_mesh(Mesh, tfm_ori, device):
     points_world = tfm_ori.transform_points(mesh_vertices.unsqueeze(0))
     Mesh.vertices = points_world[0].cpu().numpy()  # pytorch3d, y-up, x left, z inwards.
     verts, faces_idx = load_and_simplify_mesh(Mesh, device)
-    # === Add dummy white texture ===
+    # Use a neutral white texture when the source mesh has no material data.
     textures = TexturesVertex(verts_features=torch.ones_like(verts)[None])  # (1, V, 3)
     mesh = Meshes(verts=[verts], faces=[faces_idx], textures=textures)
 
