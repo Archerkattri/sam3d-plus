@@ -25,6 +25,11 @@ scaled-Hermite polynomial ([HiCache](https://arxiv.org/abs/2508.16984)) — gene
 </div>
 
 ## When to use this repo
+## Architecture at a glance
+
+![sam3d-plus architecture](doc/readme_flow.svg)
+
+The adapter preserves SAM 3D Objects’ PyTree-shaped SLaT velocity state while forecasting selected Euler steps with Hermite interpolation.
 
 These repos are **complementary accelerators, not competing solutions** — each speeds up a *different*
 base generator, and the `+` / `++` suffix is a **method choice**, not a rival product. Pick by
