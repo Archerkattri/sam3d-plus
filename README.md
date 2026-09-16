@@ -24,12 +24,13 @@ scaled-Hermite polynomial ([HiCache](https://arxiv.org/abs/2508.16984)) — gene
 
 </div>
 
+## Structured-cache integration
+
+![SAM 3D Objects HiCache integration](doc/readme_flow.svg)
+
+The segmentation and sparse-structure path remains unchanged. HiCache enters only at the SLaT Euler loop and applies Hermite forecasts leaf-by-leaf across the velocity PyTree.
+
 ## When to use this repo
-## Architecture at a glance
-
-![sam3d-plus architecture](doc/readme_flow.svg)
-
-The adapter preserves SAM 3D Objects’ PyTree-shaped SLaT velocity state while forecasting selected Euler steps with Hermite interpolation.
 
 These repos are **complementary accelerators, not competing solutions** — each speeds up a *different*
 base generator, and the `+` / `++` suffix is a **method choice**, not a rival product. Pick by
@@ -115,6 +116,7 @@ looked up before inference. It requires the upstream checkpoint setup and CUDA;
 the bounded verification for this fork does not run model inference.
 
 ```python
+import os
 import sys
 
 sys.path.append("notebook")
@@ -125,8 +127,11 @@ inference = Inference(f"checkpoints/{tag}/pipeline.yaml", compile=False)
 fm = inference._pipeline.models["slat_generator"]
 fm.enable_hicache(interval=3, max_order=1, first_enhance=2, sigma=0.5)
 
-image = load_image("notebook/images/shutterstock_stylish_kidsroom_1640806567/image.png")
-mask = load_single_mask("notebook/images/shutterstock_stylish_kidsroom_1640806567", index=14)
+image = load_image(os.environ["SAM3D_IMAGE"])
+mask = load_single_mask(
+    os.environ["SAM3D_MASK_DIR"],
+    index=int(os.environ.get("SAM3D_MASK_INDEX", "0")),
+)
 output = inference(image, mask, seed=42)
 output["gs"].save_ply("splat-hicache.ply")
 print(fm.get_hicache_status())
@@ -261,7 +266,7 @@ SAM 3D Objects is one part of SAM 3D, a pair of models for object and human mesh
 **SAM 3D Objects** is a foundation model that reconstructs full 3D shape geometry, texture, and layout from a single image, excelling in real-world scenarios with occlusion and clutter by using progressive training and a data engine with human feedback. It outperforms prior 3D generation models in human preference tests on real-world objects and scenes. We released code, weights, online demo, and a new challenging benchmark.
 
 
-<p align="center"><img src="doc/intro.png"/></p>
+<p align="center"><img src="https://raw.githubusercontent.com/facebookresearch/sam-3d-objects/main/doc/intro.png" alt="SAM 3D Objects examples"/></p>
 
 -----
 
@@ -282,13 +287,14 @@ Follow the [setup](doc/setup.md) steps before running the following.
 SAM 3D Objects can convert masked objects in an image, into 3D models with pose, shape, texture, and layout. SAM 3D is designed to be robust in challenging natural images, handling small objects and occlusions, unusual poses, and difficult situations encountered in uncurated natural scenes like this kidsroom:
 
 <p align="center">
-  <img src="notebook/images/shutterstock_stylish_kidsroom_1640806567/image.png" width="55%"/>
-  <img src="doc/kidsroom_transparent.gif" width="40%"/>
+  <img src="https://raw.githubusercontent.com/facebookresearch/sam-3d-objects/main/notebook/images/shutterstock_stylish_kidsroom_1640806567/image.png" width="55%" alt="Kids-room input image"/>
+  <img src="https://raw.githubusercontent.com/facebookresearch/sam-3d-objects/main/doc/kidsroom_transparent.gif" width="40%" alt="SAM 3D Objects reconstruction"/>
 </p>
 
 For a quick start, run `python demo.py` or use the the following lines of code:
 
 ```python
+import os
 import sys
 
 # import inference code
@@ -301,8 +307,11 @@ config_path = f"checkpoints/{tag}/pipeline.yaml"
 inference = Inference(config_path, compile=False)
 
 # load image and mask
-image = load_image("notebook/images/shutterstock_stylish_kidsroom_1640806567/image.png")
-mask = load_single_mask("notebook/images/shutterstock_stylish_kidsroom_1640806567", index=14)
+image = load_image(os.environ["SAM3D_IMAGE"])
+mask = load_single_mask(
+    os.environ["SAM3D_MASK_DIR"],
+    index=int(os.environ.get("SAM3D_MASK_INDEX", "0")),
+)
 
 # run model
 output = inference(image, mask, seed=42)
