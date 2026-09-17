@@ -11,7 +11,7 @@ allow-direct-references = true
 
 [project]
 name = "sam3d_objects"
-version = "0.0.1"
+version = "0.0.2"
 # required for "hatch-requirements-txt" to work
 dynamic = ["dependencies", "optional-dependencies"]
 
