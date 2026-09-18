@@ -61,7 +61,7 @@ pymeshfix==0.17.0
 pymongo==4.6.3
 pyrender==0.1.45
 PySocks==1.7.1
-pytest==8.1.1
+pytest==9.0.3
 python-pycg==0.9.2
 randomname==0.2.1
 roma==1.5.1
