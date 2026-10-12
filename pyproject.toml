@@ -12,8 +12,22 @@ allow-direct-references = true
 [project]
 name = "sam3d_objects"
 version = "0.0.2"
+description = "HiCache acceleration for SAM 3D Objects image-to-3D generation."
+requires-python = ">=3.11"
+license = "LicenseRef-Meta-SAM-3D-Objects"
+license-files = ["LICENSE"]
+classifiers = [
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+]
 # required for "hatch-requirements-txt" to work
 dynamic = ["dependencies", "optional-dependencies"]
+
+[project.urls]
+Repository = "https://github.com/Archerkattri/sam3d-plus"
+Upstream = "https://github.com/facebookresearch/sam-3d-objects"
 
 [tool.hatch.build]
 ignore-vcs = true
