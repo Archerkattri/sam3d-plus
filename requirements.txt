@@ -58,7 +58,7 @@ polyscope==2.3.0
 pycocotools==2.0.7
 pydot==1.4.2
 pymeshfix==0.17.0
-pymongo==4.6.3
+pymongo==4.18.2
 pyrender==0.1.45
 PySocks==1.7.1
 pytest==9.0.3
