@@ -27,7 +27,7 @@ gdown==5.2.2
 h5py==3.12.1
 hdfs==2.7.3
 httplib2==0.32.0
-hydra-core==1.3.4
+hydra-core==1.3.7
 hydra-submitit-launcher==1.2.0
 igraph==0.11.8
 imath==0.0.2
@@ -58,7 +58,7 @@ polyscope==2.3.0
 pycocotools==2.0.7
 pydot==1.4.2
 pymeshfix==0.17.0
-pymongo==4.6.3
+pymongo==4.18.2
 pyrender==0.1.45
 PySocks==1.7.1
 pytest==9.0.3
@@ -82,7 +82,7 @@ usort==1.0.8.post1
 wandb==0.20.0
 webcolors==1.13
 webdataset==0.2.86
-Werkzeug==3.1.6
+Werkzeug==3.1.9
 xatlas==0.0.9
 xformers==0.0.28.post3
 hicache-pp>=1.2.1
