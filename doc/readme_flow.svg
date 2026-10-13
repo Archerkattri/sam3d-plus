@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
   <title id="title">SAM 3D Objects + HiCache</title>
   <desc id="desc">Segmentation and sparse structure remain unchanged; caching begins at the structured SLaT Euler loop.</desc>
   <rect width="1200" height="420" rx="22" fill="#020617"/>
