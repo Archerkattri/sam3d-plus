@@ -84,11 +84,7 @@ usort==1.0.8.post1
 wandb==0.20.0
 webcolors==1.13
 webdataset==0.2.86
-<<<<<<< HEAD
-Werkzeug==3.1.6
-=======
 Werkzeug==3.1.9
->>>>>>> origin/master
 xatlas==0.0.9
 xformers==0.0.28.post3
 hicache-pp>=1.2.1
